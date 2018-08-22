@@ -1,0 +1,6 @@
+instalando codeigniter via composer
+
+composer create-project bcit-ci/codeigniter meu_projeto --prefer-dist
+
+intall-semantic
+npm install semantic-ui --save
