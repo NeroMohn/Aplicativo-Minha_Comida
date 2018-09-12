@@ -17,5 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 	<h1 align="center">Eventos</h1>
+	<div class="ui form">
+		<form id="nome">
+			<label>Digite seu nome:</label>
+			<input type="text">
+			<button type="submit" value="Enviar" name="Enviar">Enviar</button>
+		</form>
+	</div>
 </body>
 </html>
