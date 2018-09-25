@@ -36,12 +36,13 @@ class Migration_create_table_api_limits extends CI_Migration {
 				'type' => 'INT(11)',
 			],
 		);
-		$this->dbforge->add_field($fields);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->add_key('uri');
-		$this->dbforge->create_table($table);
-		$this->db->query(add_foreign_key($table, 'api_key',
-			config_item('rest_keys_table') . '(' . config_item('rest_key_column') . ')', 'CASCADE', 'CASCADE'));
+		//if (!$this->db->table_exists($table)){
+			$this->dbforge->add_field($fields);
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->add_key('uri');
+			$this->dbforge->create_table($table);
+			$this->db->query(add_foreign_key($table, 'api_key',	config_item('rest_keys_table') . '(' . config_item('rest_key_column') . ')', 'CASCADE', 'CASCADE'));
+		//}
 	}
 
 

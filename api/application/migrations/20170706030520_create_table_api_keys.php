@@ -50,10 +50,14 @@ class Migration_create_table_api_keys extends CI_Migration {
 				'type' => 'INT(11)',
 			],
 		);
-		$this->dbforge->add_field($fields);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table($table);
-		$this->db->query(add_foreign_key($table, 'user_id', 'users(id)', 'CASCADE', 'CASCADE'));
+		
+		//if (!$this->db->table_exists($table)){
+			$this->dbforge->add_field($fields);
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->create_table($table);
+			$this->db->query(add_foreign_key($table, 'user_id', 'users(id)', 'CASCADE', 'CASCADE'));
+		//}
+		
 	}
 
 

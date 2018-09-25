@@ -41,12 +41,14 @@ class Migration_create_table_api_access extends CI_Migration {
 				'type' => 'TIMESTAMP',
 			],
 		);
-		$this->dbforge->add_field($fields);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->add_key('controller');
-		$this->dbforge->create_table($table);
-		$this->db->query(add_foreign_key($table, 'key',
+		//if (!$this->db->table_exists($table)){
+			$this->dbforge->add_field($fields);
+			$this->dbforge->add_key('id', TRUE);
+			$this->dbforge->add_key('controller');
+			$this->dbforge->create_table($table);
+			$this->db->query(add_foreign_key($table, 'key',
 			config_item('rest_keys_table') . '(' . config_item('rest_key_column') . ')', 'CASCADE', 'CASCADE'));
+		//}
 	}
 
 
