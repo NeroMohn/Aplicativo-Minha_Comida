@@ -10,7 +10,7 @@ class Evento_Model extends CI_Model{
             return $response;
         }else{
             false;
-        }
+        } 
     }
 
     public function add_evento($evento){
