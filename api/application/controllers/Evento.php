@@ -15,7 +15,7 @@ class Evento extends REST_Controller{
         //$this->load->model('eventos');
         $res = $this->Evento_Model->busca_eventos();
         if($res){
-            return $this->response(json_encode($res),200);
+            return $this->response($res,200);
         }else{
             false;
         }
@@ -26,7 +26,7 @@ class Evento extends REST_Controller{
         //$this->load->model('eventos');
         $res = $this->Evento_Model->busca_eventos();
         if($res){
-            return $this->response(json_encode($res),200);
+            return $this->response($res,200);
         }else{
             false;
         }
