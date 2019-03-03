@@ -36,19 +36,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const VoittoCastStack = createStackNavigator({
-  VoittoCast: VoittoCast,
-});
 
-VoittoCastStack.navigationOptions = {
-  tabBarLabel: 'VoittoCast',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-mic' : 'md-mic'}
-    />
-  ),
-};
 
 const ArtigosStack = createStackNavigator({
   Artigos: Artigos,
@@ -84,7 +72,7 @@ MaisStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  VoittoCastStack,
+
   ArtigosStack,
   MaisStack
 }, {
