@@ -30,7 +30,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <SafeAreaView style={{flex:1}}>
             <KeyboardAvoidingView style={{flex:1}} behavior={Platform.select({ios: "padding", android: "height"})} enabled>
-              {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
+              {Platform.OS === 'ios' && <StatusBar  backgroundColor="blue" barStyle="light" />}
               {this.state.isLoggedIn==true?
               <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this),downlaods:this.openCentral.bind(this), pocast: this.playerOpenCast.bind(this) }} />
               :<LoginScreen screenProps= {{s: this.store, fc: this.filecache}} />}

@@ -1,19 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-
 import Colors from '../constants/Colors';
 
 //Pages
 import Home from '../pages/Home';
-import VoittoCast from '../pages/VoittoCast';
-import Artigos from '../pages/Artigos';
-import LerArtigo from '../pages/LerArtigo';
+import Cart from '../pages/Cart';
 import MeuPerfil from '../pages/MeuPerfil';
 import Mais from '../pages/Mais';
 import Notificacoes from '../pages/Notificacoes';
@@ -29,26 +22,23 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-home`
-          : 'md-home'
+          ? `home`
+          : 'home'
       }
     />
   ),
 };
 
-
-
-const ArtigosStack = createStackNavigator({
-  Artigos: Artigos,
-  LerArtigo: LerArtigo
+const CartStack = createStackNavigator({
+  Cart
 });
 
-ArtigosStack.navigationOptions = {
-  tabBarLabel: 'Artigos',
+CartStack.navigationOptions = {
+  tabBarLabel: 'Cart',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-paper' : 'md-paper'}
+      name={Platform.OS === 'ios' ? 'shopping-cart' : 'shopping-cart'}
     />
   ),
 };
@@ -64,7 +54,7 @@ MaisStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-menu' : 'md-menu'}
+      name={Platform.OS === 'ios' ? 'gear' : 'gear'}
     />
   ),
 };
@@ -72,8 +62,7 @@ MaisStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-
-  ArtigosStack,
+  CartStack,
   MaisStack
 }, {
   tabBarOptions: {
