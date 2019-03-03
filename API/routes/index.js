@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Promo = require('./../schema/promo');
 var Categorias = require('./../schema/categorias');
-var Cardapio = require('./../schema/cardapio');
+var Cardapio = require('../schema/cardapio');
 
 mongoose.connect('mongodb://localhost/minha_comida').then(
   ()=>{},
@@ -58,6 +58,7 @@ router.post('/cardapio', function(req, res, next) {
       res.send(JSON.stringify({status:'error',err}));
   })
 });
+
 
 
 });
