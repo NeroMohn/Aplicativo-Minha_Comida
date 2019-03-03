@@ -4,7 +4,8 @@ const userSchema = mongoose.Schema({
     id_usuario:String,
     pedidos:Array,
     data:Date,
-    status:Number
+    status:Number,
+    idApp:String,
 },
 {
     collection:'pedidos'
