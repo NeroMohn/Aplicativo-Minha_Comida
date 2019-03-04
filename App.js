@@ -6,7 +6,7 @@ import Colors from './constants/Colors';
 import Storage from './classes/Storage';
 import FileCache from './classes/FileCache';
 import LoginScreen from './pages/Login';
-
+import Carrinho from './pages/Carrinho';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -30,11 +30,14 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <SafeAreaView style={{flex:1}}>
             <KeyboardAvoidingView style={{flex:1}} behavior={Platform.select({ios: "padding", android: "height"})} enabled>
+            
               {Platform.OS === 'ios' && <StatusBar  backgroundColor="blue" barStyle="light" />}
               {this.state.isLoggedIn==true?
-              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this),downlaods:this.openCentral.bind(this), pocast: this.playerOpenCast.bind(this) }} />
+              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) }} />
               :<LoginScreen screenProps= {{s: this.store, fc: this.filecache}} />}
+              <Carrinho screenProps={{s: this.store, fc: this.filecache}} ref="carrinho" />
             </KeyboardAvoidingView> 
+            <Carrinho  />
           </SafeAreaView>
         </View>
       );
@@ -57,7 +60,7 @@ export default class App extends React.Component {
   }
 
   playerOpenCurso(id){
-    this.refs.player.loadCurso(id);
+    this.refs.carrinho.init(id);
   }
 
   playerOpenCast(castObject){

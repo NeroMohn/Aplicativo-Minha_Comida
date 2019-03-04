@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Image,
   View,
-  Dimensions
+  TouchableOpacity
 } from 'react-native';
 
 
@@ -81,8 +81,10 @@ export default class Home extends React.Component {
   }
 
   
+  pedir = (id)=>{
+    this.props.screenProps.pocurso(id)
+  }
   render() {
-
     if(this.state.isLoading)
       return (
         <View style={styles.container}>
@@ -128,7 +130,7 @@ export default class Home extends React.Component {
               <ListView
                 dataSource={this.state.cardapio}
                 renderRow={(rowData) => 
-                  <View style={{ alignItems:'center',marginLeft:20, marginBottom:10,alignItems:'flex-start', width:'100%'}}>
+                  <TouchableOpacity style={{ alignItems:'center',marginLeft:20, marginBottom:10,alignItems:'flex-start', width:'100%'}} onPress={()=>this.pedir(rowData)}>
                     <View style={{height:0.5, width:'90%', backgroundColor:Colors.inputPlaceholder, marginBottom:10, marginRight:20}}></View>
                     <View style={{ flexDirection:'row',width:'100%', alignItems:'center'}}>
                       <ImageCache source={rowData.img} style={{width:50,height:50, borderRadius:25,}}/>
@@ -141,7 +143,7 @@ export default class Home extends React.Component {
                         <Text style={{color:'#FFA629'}}> {rowData.score}</Text>
                       </View>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 }
               />
             </View>

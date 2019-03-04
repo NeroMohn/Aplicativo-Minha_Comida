@@ -1,26 +1,53 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 var Pedidos = require('./../schema/pedidos');
+var Cardapio = require('../schema/cardapio');
+
 
 mongoose.connect('mongodb://localhost/minha_comida').then(
   ()=>{},
   err =>{console.log("Erro na conexão com o banco de dados !",err);}
 );
 
-router.post('/meus_pedidos', function(req, res, next) {
+router.post('/meuspedidos', function(req, res, next) {
     let idApp = req.body.idApp;
-    console.log(JSON.stringify(req.body.idApp));
-    Pedidos.find({idApp:idApp})
+    let id_usuario = req.body.id_usuario;
+    
+    if(id_usuario === undefined || id_usuario === '') {
+        res.send(JSON.stringify({status:'error', message:'ID do usuario vazia!'}));
+    };
+
+
+    Pedidos.find({idApp:idApp, id_usuario:id_usuario}).sort({ createdOn : -1})
     .then((data)=>{
-        if(data.length>0){
-            res.send(JSON.stringify({status:"sucess",  data}));
-        }else{
-            res.send(JSON.stringify({status:'error', message:'Nada encontrado !'}));
-        }
+        let pedidos =  data[0]['pedidos'];
+        var array = [];
+    
+        pedidos.map(element => {
+            Cardapio.find({_id:new Object(element[0])})
+            .then(adas=>{
+                array.push(adas[0])
+            })
+        })
+        setTimeout(() => {
+            res.send(JSON.stringify({pedidos:array, dados:data}));
+        }, 200);
+     
+
     })
     .catch((err)=>{
         res.send(JSON.stringify({status:'error',err}));
-})
+    })
 
+
+
+
+
+    
+  
 });
+
+
+module.exports = router;

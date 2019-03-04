@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+var Timestamp = require('mongodb').Timestamp;
+
 const userSchema = mongoose.Schema({
     _id:String,
     id_usuario:String,
     pedidos:Array,
-    data:Date,
+    data:String,
     status:Number,
     idApp:String,
 },

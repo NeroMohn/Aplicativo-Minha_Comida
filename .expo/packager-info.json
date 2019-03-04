@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 5037,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://f9-5m7.voittoti.minha-comida.exp.direct",
   "packagerNgrokUrl": "https://packager.f9-5m7.voittoti.minha-comida.exp.direct",
-  "ngrokPid": 5051
+  "ngrokPid": 19237
 }
