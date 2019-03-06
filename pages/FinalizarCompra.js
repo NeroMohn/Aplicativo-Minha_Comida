@@ -68,8 +68,7 @@ export default class FinalizarCompra extends React.Component {
     }
 
     componentDidMount(){
-
-   
+      
     }
 
     buscar_cep(){
@@ -77,20 +76,60 @@ export default class FinalizarCompra extends React.Component {
       .then(res=>{
         res = JSON.parse(res['_bodyText']);
         console.log(res)
+        let array = [
+          res.logradouro,
+          res.bairro,
+          0,
+          0,
+          res.localidade
+        ];
+
         this.setState({
           loading:false,
           cep_endereco:res.logradouro,
           cep_bairro: res.bairro,
           cep_cidade:res.localidade,
-          enderco_array:res,
-
+          enderco_array:array,
         })
       })  
     }
 
+    finalizarPedido(){
+      if(this.state.payment == undefined || this.state.payment === ''){
+        alert("Selecione a forma de pagamento"); return;
+      }
+      if(this.state.enderco_array[2] == 0){
+        this.state.enderco_array[2]  = this.state.numero_casa;
+        this.state.enderco_array[3] = this.state.complemento_casa;
+      }
+      
+      let order = JSON.stringify({
+        pedido: this.state.pedido,
+        enderco: this.state.enderco_array,
+        tipo: this.state.payment,
+        taxa_entrega: this.state.taxaEntrega
+      })
+    
+      axios.post(Server.host + `/cart/efetuarPedido`,{idApp:Server.idApp , json:order})
+      .then(res=>{
+
+      })
+    }
+
+    selectPayment(type = ''){
+      if(type === '' || type === undefined) return;
+      if(type === "Dinheiro"){
+        
+      }
+      this.setState({
+        payment:type
+      })
+      
+    }
+
     format_dinheiro (numero){
       var numero = numero.toFixed(2).split('.');
-      numero[0] = "R$ " + numero[0].split(/(?=(?:...)*$)/).join('.');
+      numero[0] = "R$ " + numero[0].split(/(?=(s?:...)*$)/).join('.');
       return numero.join(',');
     }
 
@@ -104,9 +143,10 @@ export default class FinalizarCompra extends React.Component {
         endereco: this.state.cep_endereco+","+ this.state.numero_casa,
         outro_modal:false,
         modal_endereco:false,
-
       })
     }
+
+
     render_modal_endereco(){
       return(
         <Modal
@@ -125,7 +165,7 @@ export default class FinalizarCompra extends React.Component {
                   <Text style={{color:'black', fontWeight:'500', alignSelf:'center', marginTop:20}}>ENDEREÇO</Text>
                 </View>
               <View style={{height:1, backgroundColor:"#F0F0F0",marginTop:25,marginBottom:10, alignSelf:'center', width:'95%',}}></View>
-              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center'}}>
+              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center'}} onPress={()=>{this._init(this.state.pedido)}}>
                 <Text style={{marginLeft:20}}>Minha casa </Text>
                 <View style={{ position:'absolute', right:20}} >
                   <Icon.FontAwesome name={"home"} color={Colors.buttonlogin} size={20} />
@@ -161,7 +201,7 @@ export default class FinalizarCompra extends React.Component {
               <View style={{width:'90%', alignSelf:'center'}}>
                 {this.state.cep_endereco != ''? <View>
                   <Input placeholder={"Nº"}  type={""} loading={this.state.loading} value={this.state.numero_casa} onChangeText={(numero_casa)=>{this.setState({numero_casa}) }} />
-                  <Input placeholder={"Complemento"}   type={"emailAddress"} loading={this.state.loading} value={this.state.complemento} onChangeText={(complemento)=>{this.setState({complemento}) }} />
+                  <Input placeholder={"Complemento"}   type={"emailAddress"} loading={this.state.loading} value={this.state.complemento_casa} onChangeText={(complemento_casa)=>{this.setState({complemento_casa}) }} />
                   <View style={{ marginTop:'20%'}} >
                   <Button onPress={()=>{this.setar_endereco()}} loading={this.state.loading} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold',  }}>Selecionar</Text></Button>
                 </View>
@@ -238,16 +278,18 @@ export default class FinalizarCompra extends React.Component {
             <View style={{width:'100%', backgroundColor:'#fff', marginTop:10, borderBottomRightRadius:10,borderBottomLeftRadius:10}}>
               <Text style={{marginTop:20,marginLeft:20, fontSize:16, fontWeight:'700', marginBottom:20}}>Pagamento</Text>
               <View style={{height:1, backgroundColor:"#F0F0F0",marginTop:10,marginBottom:10, alignSelf:'center', width:'95%',}}></View>
-              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center'}}>
-                <Text style={{marginLeft:20}}>Dinheiro </Text>
-                <View style={{ position:'absolute', right:20}} >
-                  <Icon.FontAwesome name={"money"} color={"green"} size={20} />
+              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center',}} onPress={()=>{this.selectPayment("Dinheiro")}}>
+                <Text style={{marginLeft:20}}>Dinheiro</Text>
+                <View style={{ position:'absolute', right:20,flexDirection:'row'}} >
+                  {this.state.payment === "Dinheiro" ?    <Icon.FontAwesome name={"check"} color={"green"} size={20} style={{marginRight:10}} /> : null}
+                  <Icon.FontAwesome name={"money"} color={"black"} size={20} />
                 </View>
               </TouchableOpacity>
               <View style={{height:1, backgroundColor:"#F0F0F0",marginTop:10,marginBottom:10, alignSelf:'center', width:'95%'}}></View>
-              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center'}}>
+              <TouchableOpacity style={{ marginBottom:5, marginTop:5,justifyContent:'center',}} onPress={()=>{this.selectPayment("Card")}}>
                 <Text style={{marginLeft:20}}>Cartão de Crédito </Text>
-                <View style={{ position:'absolute', right:20}} >
+                <View style={{ position:'absolute', right:20, flexDirection:'row'}} >
+                {this.state.payment === "Card" ?    <Icon.FontAwesome name={"check"} color={"green"} size={20} style={{marginRight:10}} /> : null}
                   <Icon.AntDesign name={"creditcard"} color={"black"} size={20} />
                 </View>
               </TouchableOpacity>
@@ -257,7 +299,7 @@ export default class FinalizarCompra extends React.Component {
               </View> 
    
             </View>
-            <Button onPress={()=>{   }} loading={this.state.loading} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold', }}>Finalizar Pedido</Text></Button>
+            <Button onPress={()=>{this.finalizarPedido() }} loading={this.state.loading} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold', }}>Finalizar Pedido</Text></Button>
           
           </ScrollView>
         )

@@ -55,32 +55,29 @@ export default class Home extends React.Component {
     .then(res=>{
       res.data.data.sort(this.orgazinar); 
       carrosel = ds.cloneWithRows(res.data.data)
-    })
-    .then(()=>{
       axios.post(Server.host + `/categorias`,{idApp:Server.idApp})
       .then(res=>{
         res.data.data.sort(this.orgazinar); 
         categorias=ds.cloneWithRows(res.data.data)
-      })
-    })
-    .then(()=>{
-      axios.post(Server.host + `/cardapio`,{idApp:Server.idApp})
-      .then(res=>{
-        res.data.data.sort(this.orgazinar_2); 
-        var cardapio =ds.cloneWithRows(res.data.data)
-        this.setState({
-          carrosel,
-          categorias,
-          cardapio,
-        
+        axios.post(Server.host + `/cardapio`,{idApp:Server.idApp})
+        .then(res=>{
+          res.data.data.sort(this.orgazinar_2); 
+          var cardapio =ds.cloneWithRows(res.data.data)
+          this.setState({
+            carrosel,
+            categorias,
+            cardapio,
+          
+          })
         })
       })
     })
+   
     setTimeout(() => {
       this.setState({
         isLoading:true,
       })
-    }, 500);
+    }, 1000);
 
   }
 

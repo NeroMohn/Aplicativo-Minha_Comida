@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 var Pedidos = require('./../schema/pedidos');
 var Cardapio = require('../schema/cardapio');
-var Complementos = require('../schema/complementos');
 
 
 mongoose.connect('mongodb://localhost/minha_comida').then(
@@ -47,10 +46,36 @@ router.post('/meuspedidos', function(req, res, next) {
         res.send(JSON.stringify({status:'error',err}));
     })
 
-
-
-  
 });
 
+
+router.post('/pedir', function(req, res, next) {
+    let idApp = req.body.idApp;
+    Complementos.find({idApp:idApp})
+    .then((data)=>{
+        if(data.length>0){
+            res.send(JSON.stringify({status:"sucess",  data}));
+        }else{
+            res.send(JSON.stringify({status:'error', message:'Nada encontrado !'}));
+        }
+    })
+    .catch((err)=>{
+        res.send(JSON.stringify({status:'error',err}));
+    })
+});
+
+
+
+router.post('/efetuarPedido', function(req, res, next) {
+    let idApp = req.body.idApp;
+    let json = JSON.parse(req.body.json);
+
+    console.log(json)
+
+
+
+    res.send(JSON.stringify({status:"sucess"}));
+
+});
 
 module.exports = router;

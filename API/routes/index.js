@@ -16,9 +16,6 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
 
 
 
-
-
-
 router.post('/carrousel', function(req, res, next) {
   let idApp = req.body.idApp;
   console.log(JSON.stringify(req.body.idApp));

@@ -8,6 +8,9 @@ const userSchema = mongoose.Schema({
     data:String,
     status:Number,
     idApp:String,
+    endereco:Array,
+    tipo:String,
+    taxa_entrega:Number,
 },
 {
     collection:'pedidos'
