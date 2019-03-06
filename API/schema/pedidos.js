@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
     _id:String,
     id_usuario:String,
     pedidos:Array,
+    complementos:Array,
     data:String,
     status:Number,
     idApp:String,

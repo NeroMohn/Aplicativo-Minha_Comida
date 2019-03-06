@@ -69,13 +69,24 @@ router.post('/pedir', function(req, res, next) {
 router.post('/efetuarPedido', function(req, res, next) {
     let idApp = req.body.idApp;
     let json = JSON.parse(req.body.json);
-
-    console.log(json)
-
-
-
-    res.send(JSON.stringify({status:"sucess"}));
-
+    Pedidos.insertMany({
+        id_usuario:json.id_usuario,
+        pedidos:json.pedido[0].pedido,
+        status:1,
+        idApp:idApp,
+        data:new Date(),
+        complementos:json.pedido[0].complementos,
+        endereco:json.endereco,
+        tipo:json.tipo,
+        taxa_entrega:json.taxa_entrega,
+    })
+    .then((data)=>{
+        res.send(JSON.stringify({status:"sucess",  data:data}));
+    })
+    .catch(err=>{
+        res.send(JSON.stringify({status:"error",   data:data}));
+    })
+    
 });
 
 module.exports = router;

@@ -74,8 +74,7 @@ export default class FinalizarCompra extends React.Component {
     buscar_cep(){
       fetch("https://viacep.com.br/ws/"+this.state.cep+"/json/")
       .then(res=>{
-        res = JSON.parse(res['_bodyText']);
-        console.log(res)
+        res = JSON.parse(res['_bodyText']); 
         let array = [
           res.logradouro,
           res.bairro,
@@ -103,17 +102,28 @@ export default class FinalizarCompra extends React.Component {
         this.state.enderco_array[3] = this.state.complemento_casa;
       }
       
+      this.setState({loading_button:true})
+      let uid = this.store.get_offline('usuario');
       let order = JSON.stringify({
         pedido: this.state.pedido,
-        enderco: this.state.enderco_array,
+        endereco: this.state.enderco_array,
         tipo: this.state.payment,
-        taxa_entrega: this.state.taxaEntrega
+        taxa_entrega: this.state.taxaEntrega,
+        id_usuario: uid.data[0]._id,
       })
     
       axios.post(Server.host + `/cart/efetuarPedido`,{idApp:Server.idApp , json:order})
       .then(res=>{
+        this.setState({loading_button:false})
+        res = res.data.status
+        
+        if(res === "sucess"){
 
-      })
+        }else{
+          
+        }
+        
+      })  
     }
 
     selectPayment(type = ''){
@@ -299,7 +309,7 @@ export default class FinalizarCompra extends React.Component {
               </View> 
    
             </View>
-            <Button onPress={()=>{this.finalizarPedido() }} loading={this.state.loading} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold', }}>Finalizar Pedido</Text></Button>
+            <Button onPress={()=>{this.finalizarPedido() }} loading={this.state.loading_button} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold', }}>Finalizar Pedido</Text></Button>
           
           </ScrollView>
         )
