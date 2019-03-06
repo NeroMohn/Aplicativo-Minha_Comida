@@ -12,10 +12,6 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
 );
 
 
-
-    
-
-
 router.post('/meuspedidos', function(req, res, next) {
     let idApp = req.body.idApp;
     let id_usuario = req.body.id_usuario;
@@ -85,8 +81,7 @@ router.post('/efetuarPedido', function(req, res, next) {
     })
     .catch(err=>{
         res.send(JSON.stringify({status:"error",   data:data}));
-    })
-    
+    }) 
 });
 
 module.exports = router;
