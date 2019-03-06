@@ -4,12 +4,18 @@ var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 var Pedidos = require('./../schema/pedidos');
 var Cardapio = require('../schema/cardapio');
+var Complementos = require('../schema/complementos');
 
 
 mongoose.connect('mongodb://localhost/minha_comida').then(
   ()=>{},
   err =>{console.log("Erro na conexão com o banco de dados !",err);}
 );
+
+
+
+    
+
 
 router.post('/meuspedidos', function(req, res, next) {
     let idApp = req.body.idApp;
@@ -43,9 +49,6 @@ router.post('/meuspedidos', function(req, res, next) {
 
 
 
-
-
-    
   
 });
 

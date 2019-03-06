@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
     pass:String,
     idApp:String,
     nome:String,
+    enderco:Array,
 },
 {
     collection:'user'

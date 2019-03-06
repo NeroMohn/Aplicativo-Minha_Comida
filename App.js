@@ -7,6 +7,7 @@ import Storage from './classes/Storage';
 import FileCache from './classes/FileCache';
 import LoginScreen from './pages/Login';
 import Carrinho from './pages/Carrinho';
+import FinalizarCompra from './pages/FinalizarCompra';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -30,19 +31,21 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <SafeAreaView style={{flex:1}}>
             <KeyboardAvoidingView style={{flex:1}} behavior={Platform.select({ios: "padding", android: "height"})} enabled>
-            
               {Platform.OS === 'ios' && <StatusBar  backgroundColor="blue" barStyle="light" />}
               {this.state.isLoggedIn==true?
-              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) }} />
-              :<LoginScreen screenProps= {{s: this.store, fc: this.filecache}} />}
-              <Carrinho screenProps={{s: this.store, fc: this.filecache}} ref="carrinho" />
+              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) , checkuoutopen: this.checkoutOpen.bind(this) }} />
+              :<LoginScreen screenProps= {{s: this.store, fc: this.filecache, }} />}
+              <Carrinho screenProps={{s: this.store, fc: this.filecache, checkuoutopen: this.checkoutOpen.bind(this) }} ref="carrinho" />
+              <FinalizarCompra screenProps={{s: this.store, fc: this.filecache}} ref="checkouts" />
             </KeyboardAvoidingView> 
-            <Carrinho  />
           </SafeAreaView>
         </View>
       );
     }
   }
+
+  //this.props.screenProps.pocurso(id)
+
 
   getPlayer(){
     if(this.player!==undefined)
@@ -62,6 +65,12 @@ export default class App extends React.Component {
   playerOpenCurso(id){
     this.refs.carrinho.init(id);
   }
+
+  checkoutOpen(id){
+    this.refs.checkouts.init(id);
+  }
+
+
 
   playerOpenCast(castObject){
     this.refs.player.loadCast(castObject);

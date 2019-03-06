@@ -9,9 +9,7 @@ import Colors from '../constants/Colors';
 //Pages
 import Home from '../pages/Home';
 import Cart from '../pages/Cart';
-import MeuPerfil from '../pages/MeuPerfil';
-import Mais from '../pages/Mais';
-import Notificacoes from '../pages/Notificacoes';
+import FinalizarCompra from '../pages/FinalizarCompra';
 
 const HomeStack = createStackNavigator({
   Home: Home,
@@ -32,8 +30,10 @@ HomeStack.navigationOptions = {
 };
 
 const CartStack = createStackNavigator({
-  Cart
+  Cart,
+  CheckOut:FinalizarCompra
 });
+
 
 CartStack.navigationOptions = {
   tabBarLabel: 'Cart',
@@ -45,27 +45,13 @@ CartStack.navigationOptions = {
   ),
 };
 
-const MaisStack = createStackNavigator({
-  Mais: Mais,
-  MeuPerfil: MeuPerfil,
-  Notificacoes: Notificacoes
-});
-
-MaisStack.navigationOptions = {
-  tabBarLabel: 'Mais',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'gear' : 'gear'}
-    />
-  ),
-};
 
 
 export default createBottomTabNavigator({
   HomeStack,
   CartStack,
-  MaisStack
+
+  
 }, {
   tabBarOptions: {
     showLabel: false,

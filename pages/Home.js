@@ -72,11 +72,15 @@ export default class Home extends React.Component {
           carrosel,
           categorias,
           cardapio,
-          isLoading:true,
+        
         })
       })
     })
-   
+    setTimeout(() => {
+      this.setState({
+        isLoading:true,
+      })
+    }, 500);
 
   }
 
