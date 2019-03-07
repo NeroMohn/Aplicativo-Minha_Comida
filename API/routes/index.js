@@ -13,7 +13,10 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
 );
 
 
-
+router.get('/', function(req, res, next) {
+    res.render('index');
+})
+  
 
 
 router.post('/carrousel', function(req, res, next) {
