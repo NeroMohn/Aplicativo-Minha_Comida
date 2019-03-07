@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   View,
+  Image,
   ScrollView,
   Dimensions
 } from 'react-native';
@@ -30,10 +31,12 @@ export default class FinalizarCompra extends React.Component {
   constructor(props){
         super(props);
         this.store = this.props.screenProps.s;
+
         this.init = this._init.bind(this);
         this.state = {
           ocultar:false,
           pedido:{},
+          finalizar_order:false,
           taxaEntrega: 0,
           entregaIni:0,
           entregaFin:0,
@@ -93,6 +96,7 @@ export default class FinalizarCompra extends React.Component {
       })  
     }
 
+ 
     finalizarPedido(){
       if(this.state.payment == undefined || this.state.payment === ''){
         alert("Selecione a forma de pagamento"); return;
@@ -102,7 +106,15 @@ export default class FinalizarCompra extends React.Component {
         this.state.enderco_array[3] = this.state.complemento_casa;
       }
       
-      this.setState({loading_button:true})
+      // loading_pedido:false,
+      // finalizar_order:false,
+
+
+      this.setState({
+        loading_button:true,
+        loading_pedido:true,
+        finalizar_order:true
+      })
       let uid = this.store.get_offline('usuario');
       let order = JSON.stringify({
         pedido: this.state.pedido,
@@ -115,10 +127,11 @@ export default class FinalizarCompra extends React.Component {
       axios.post(Server.host + `/cart/efetuarPedido`,{idApp:Server.idApp , json:order})
       .then(res=>{
         this.setState({loading_button:false})
-        res = res.data.status
-        
+        res = res.data.status;
         if(res === "sucess"){
-
+          this.setState({
+            loading_pedido:false,
+          })
         }else{
           
         }
@@ -129,7 +142,7 @@ export default class FinalizarCompra extends React.Component {
     selectPayment(type = ''){
       if(type === '' || type === undefined) return;
       if(type === "Dinheiro"){
-        
+        // MODAL DE TROCO
       }
       this.setState({
         payment:type
@@ -154,6 +167,41 @@ export default class FinalizarCompra extends React.Component {
         outro_modal:false,
         modal_endereco:false,
       })
+    }
+
+
+    render_animation(){
+     return(
+      <Modal
+      animationType="fade"
+      transparent={false}
+      visible={this.state.finalizar_order}
+      onRequestClose={() => {}}>
+          <View style={{backgroundColor:'white', height:'100%', flexDirection:'column'}}>
+             {this.state.loading_pedido?
+            <View>
+              <Image source={require('../assets/images/motoboy.gif')}  style={{width:200, height:150, alignSelf:'center', resizeMode:'clip', marginTop:'50%', marginLeft:-30 }}/>
+              <Text style={{alignSelf:'center', marginTop:45, fontSize:18, fontWeight:'500'}}>Estamos realizando seu pedido</Text>
+              <Text style={{alignSelf:'center',  fontSize:18, fontWeight:'500',marginBottom:60}}>aguarde um instante...</Text>
+              <Loading />
+            </View>:
+            <View style={{width:"90%", alignSelf:'center'}}> 
+                <Text style={{alignSelf:'center', marginTop:'70%', fontSize:18, fontWeight:'500',marginBottom:50 }}>Pedido realizado com sucesso !</Text>
+                <Button onPress={()=>{this.close_all()}} loading={this.state.loading} color={Colors.buttonlogin}><Text style={{color:Colors.text, fontWeight:'bold',  }}>Voltar ao Inicio</Text></Button>
+            </View>}
+          </View>
+      </Modal>
+     )
+    }
+
+    close_all(){
+      this.props.screenProps.clean_carrinho()
+      this.setState({
+        loading_pedido:false,
+        finalizar_order:false,
+        ocultar:false,
+      } )
+      delete this.state.data;
     }
 
 
@@ -256,7 +304,9 @@ export default class FinalizarCompra extends React.Component {
                 <Text style={{fontSize:14,marginTop:5, color:Colors.inputPlaceholder}}>Previsão de entrega: {this.state.entregaIni} - {this.state.entregaFin} min</Text>
                 <View style={{height:1, backgroundColor:"#F0F0F0",marginTop:10,marginBottom:10, width:'95%'}}></View>
               </View>
+              {this.render_animation()}
               {this.render_modal_endereco()}
+             
               <ListView
                 dataSource={ds.cloneWithRows(this.state.pedido[0].pedido)}
                 renderRow={(rowData) =>

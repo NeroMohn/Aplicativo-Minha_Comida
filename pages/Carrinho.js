@@ -26,6 +26,7 @@ export default class Carrinho extends React.Component {
   constructor(props){
         super(props);
         this.init = this._init.bind(this);
+        this.clean_carrinho = this._clean_carrinho.bind(this);
         this.state = {
           isLoading: false,
           empty:true,
@@ -140,7 +141,21 @@ export default class Carrinho extends React.Component {
 
 
     }
-
+    
+    _clean_carrinho(){
+        console.log("clean")
+        this.setState({
+            isLoading: false,
+          empty:true,
+          lista:[],
+          quantdades_complementos:[],
+          total:0,
+          quantdades:[],
+          modal_complemento:false,
+          show: false,
+          modal_complemento:false,
+        })
+    }
    render_modal_complemento(){
        
         return(

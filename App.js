@@ -36,7 +36,7 @@ export default class App extends React.Component {
               <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) , checkuoutopen: this.checkoutOpen.bind(this) }} />
               :<LoginScreen screenProps= {{s: this.store, fc: this.filecache, }} />}
               <Carrinho screenProps={{s: this.store, fc: this.filecache, checkuoutopen: this.checkoutOpen.bind(this) }} ref="carrinho" />
-              <FinalizarCompra screenProps={{s: this.store, fc: this.filecache}} ref="checkouts" />
+              <FinalizarCompra screenProps={{s: this.store, fc: this.filecache, clean_carrinho: this.clean_carrinho.bind(this)}} ref="checkouts" />
             </KeyboardAvoidingView> 
           </SafeAreaView>
         </View>
@@ -66,6 +66,10 @@ export default class App extends React.Component {
     this.refs.carrinho.init(id);
   }
 
+  clean_carrinho(){
+    this.refs.carrinho.clean_carrinho();
+  }
+
   checkoutOpen(id){
     this.refs.checkouts.init(id);
   }
@@ -91,17 +95,8 @@ export default class App extends React.Component {
     this.filecache = new FileCache;
     return Promise.all([
       Asset.loadAsync([
-        require('./assets/images/voittocoins.png'),
-        require('./assets/images/app.png'),
-        require('./assets/images/cursosIcon.png'),
-        require('./assets/images/vcastIcon.png'),
-        require('./assets/images/logo.png'),
-        require('./assets/images/gp-voitto-gray.png'),
         require('./assets/images/no-image.jpg'),
-        require('./assets/images/icones/ic_play.png'),
-        require('./assets/images/icones/ic_left.png'),
-        require('./assets/images/icones/ic_right.png'),
-        require('./assets/images/icones/ic_pause.png')
+        require('./assets/images/motoboy.gif')
       ]), 
     ]);
   };

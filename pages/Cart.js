@@ -19,6 +19,7 @@ import axios from 'axios';
 import Server from '../constants/Server';
 import Loading from '../components/Loading';
 import { ScrollView } from 'react-native-gesture-handler';
+
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class Cart extends React.Component {
@@ -31,26 +32,45 @@ export default class Cart extends React.Component {
         this.state = {
           isLoading: false,
           empty:true,
-          lista:{}
+          lista:ds.cloneWithRows([]),
         };
+
+        this.subs = [
+          this.props.navigation.addListener('willFocus', () => {this.init()}),
+        ]
     }
 
     componentDidMount(){
+      this.init()
+    }
+    init(){
       this.store.watch('usuario', (response)=>{
         axios.post(Server.host + `/cart/meuspedidos`,{idApp:Server.idApp, id_usuario:response.data[0]._id})
         .then(res=>{
           res = res.data;
+          var pedidos = []
+          if(res.dados !== undefined)
+          {
+            res.dados.forEach(element => {
+              pedidos.push({
+                id:element._id,
+                status: element.status
+              })
+  
+            });
+          }
          
-          if(res.pedidos.length <=0){
+          if(pedidos.length <=0 || pedidos.length === undefined){
             this.setState({
               isLoading:true,
               empty:true,
             })
           }else{
+            pedidos = pedidos.slice(0).reverse()
             this.setState({
               empty:false,
               isLoading:true,
-              lista:ds.cloneWithRows(res.dados),
+              lista:ds.cloneWithRows(pedidos),
             })
           }
         })
@@ -100,7 +120,7 @@ export default class Cart extends React.Component {
                         <Icon.FontAwesome  name="shopping-cart" size={30} color={Colors.buttonlogin}/>
                         <View style={{marginLeft:20, alignItems:'flex-start', }}>
                           <Text style={{color:Colors.inputPlaceholder, fontSize:16,  color:'black'}}>#Pedido: {this.status(rowData.status)}</Text>
-                          <Text style={{color:Colors.inputPlaceholder, fontSize:14, color:Colors.inputPlaceholder}}>Código: #{rowData._id}</Text>
+                          <Text lineBreakMode={1} style={{color:Colors.inputPlaceholder, fontSize:14,marginTop:5, color:Colors.inputPlaceholder}}>Código: #{rowData.id}</Text>
                         </View>
                       </View>
                     </View>

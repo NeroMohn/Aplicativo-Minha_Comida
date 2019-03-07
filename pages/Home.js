@@ -34,6 +34,9 @@ export default class Home extends React.Component {
       carrosel:{},
       categorias:{},
     };
+    this.subs = [
+      this.props.navigation.addListener('willFocus', () => {this.load_carrousel()}),
+    ]
   }
   
   componentDidMount(){

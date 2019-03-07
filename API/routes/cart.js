@@ -77,7 +77,10 @@ router.post('/efetuarPedido', function(req, res, next) {
         taxa_entrega:json.taxa_entrega,
     })
     .then((data)=>{
+      setTimeout(() => {
         res.send(JSON.stringify({status:"sucess",  data:data}));
+          
+      }, 2000);
     })
     .catch(err=>{
         res.send(JSON.stringify({status:"error",   data:data}));
