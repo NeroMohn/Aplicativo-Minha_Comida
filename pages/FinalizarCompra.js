@@ -275,7 +275,7 @@ export default class FinalizarCompra extends React.Component {
       if(this.state.ocultar){
         if(!this.state.loading_activy)
           return(
-            <ScrollView style={{ width:'100%', backgroundColor:'#fff', height:'100%', paddingBottom:'10%' }}  contentContainerStyle={{ flexGrow: 1 }}>
+            <ScrollView style={{ width:'100%', backgroundColor:'#fff', height:'100%', paddingBottom:'10%',zIndex:999999999  }}  contentContainerStyle={{ flexGrow: 1 }}>
               <View style={{width:'100%', backgroundColor:Colors.buttonlogin, height:'15%', flexDirection:'column', alignItems:'flex-start', justifyContent:'center'}}>
               <TouchableOpacity style={{position:'absolute', left:10, padding:5, top:'25%', marginTop:-13}} onPress={()=>this.setState({ocultar: false})}>
                   <Icon.AntDesign name={"down"} color={Colors.orage} size={20} />
@@ -286,7 +286,7 @@ export default class FinalizarCompra extends React.Component {
           )
         else
         return(
-          <ScrollView style={{ width:'100%', backgroundColor:'#fff', height:'100%', paddingBottom:'10%' }}  contentContainerStyle={{ flexGrow: 1 }}>
+          <ScrollView style={{ width:'100%', backgroundColor:'#fff', height:'100%', paddingBottom:'10%', zIndex:999999999 }}  contentContainerStyle={{ flexGrow: 1 }}>
             <View style={{width:'100%', backgroundColor:Colors.buttonlogin, height:'15%', flexDirection:'column', alignItems:'flex-start', justifyContent:'center'}}>
               <TouchableOpacity style={{position:'absolute', left:10, padding:5, top:'25%', marginTop:-13}} onPress={()=>this.setState({ocultar: false})}>
                   <Icon.AntDesign name={"down"} color={Colors.orage} size={20} />

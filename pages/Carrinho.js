@@ -257,7 +257,7 @@ export default class Carrinho extends React.Component {
     render(){
         if(this.state.show){
             return(
-                <View style={{position:'absolute', backgroundColor:"#F5F5EF", width:'100%', height:'100%',}}>
+                <View style={{position:'absolute', backgroundColor:"#F5F5EF", width:'100%', height:'100%',zIndex:99999999}}>
                     <View style={{width:'100%', backgroundColor:'#fff', height:'7%', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                         <TouchableOpacity style={{position:'absolute', left:10, padding:5, top:'50%', marginTop:-13}} onPress={()=>this.setState({show: false})}>
                             <Icon.AntDesign name={"down"} color={Colors.buttonlogin} size={20} />

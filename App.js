@@ -8,6 +8,8 @@ import FileCache from './classes/FileCache';
 import LoginScreen from './pages/Login';
 import Carrinho from './pages/Carrinho';
 import FinalizarCompra from './pages/FinalizarCompra';
+import ModalAlternado from './pages/ModalAlternado';
+import Busca from './pages/Busca'
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -31,12 +33,17 @@ export default class App extends React.Component {
         <View style={styles.container}>
           <SafeAreaView style={{flex:1}}>
             <KeyboardAvoidingView style={{flex:1}} behavior={Platform.select({ios: "padding", android: "height"})} enabled>
+             
               {Platform.OS === 'ios' && <StatusBar  backgroundColor="blue" barStyle="light" />}
               {this.state.isLoggedIn==true?
-              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) , checkuoutopen: this.checkoutOpen.bind(this) }} />
+              <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) , search: this.search.bind(this),checkuoutopen: this.checkoutOpen.bind(this), modalAlternado: this.initModal.bind(this)}} />
               :<LoginScreen screenProps= {{s: this.store, fc: this.filecache, }} />}
-              <Carrinho screenProps={{s: this.store, fc: this.filecache, checkuoutopen: this.checkoutOpen.bind(this) }} ref="carrinho" />
+              <ModalAlternado screenProps= {{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) }} ref="modalAlternado" />
+
+              <Busca screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) ,}} ref="search" />
+              <Carrinho style={{zIndex:999999}} screenProps={{s: this.store, fc: this.filecache, checkuoutopen: this.checkoutOpen.bind(this) }} ref="carrinho" />
               <FinalizarCompra screenProps={{s: this.store, fc: this.filecache, clean_carrinho: this.clean_carrinho.bind(this)}} ref="checkouts" />
+             
             </KeyboardAvoidingView> 
           </SafeAreaView>
         </View>
@@ -47,6 +54,12 @@ export default class App extends React.Component {
   //this.props.screenProps.pocurso(id)
 
 
+  search(dado){
+    this.refs.search.init(dado)
+  }
+  initModal(dado, categoria){
+    this.refs.modalAlternado.init(dado,categoria)
+  }
   getPlayer(){
     if(this.player!==undefined)
       return this.player;

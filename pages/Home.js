@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   View,
+  TextInput,
   TouchableOpacity
 } from 'react-native';
 
@@ -29,6 +30,9 @@ export default class Home extends React.Component {
   constructor(props){
     super(props);
     this.store = this.props.screenProps.s;
+    this.modalAlternado = this.props.screenProps.modalAlternado;
+
+
     this.state = {
       isLoading: false,
       carrosel:{},
@@ -64,13 +68,18 @@ export default class Home extends React.Component {
         categorias=ds.cloneWithRows(res.data.data)
         axios.post(Server.host + `/cardapio`,{idApp:Server.idApp})
         .then(res=>{
-          res.data.data.sort(this.orgazinar_2); 
-          var cardapio =ds.cloneWithRows(res.data.data)
+          var card= [];
+          (res.data.data).forEach(element => {
+            if(element.destaque == 1){
+              card.push(element)
+            }
+          }); 
+          card.sort(this.orgazinar_2);
+          var cardapio =ds.cloneWithRows(card)
           this.setState({
             carrosel,
             categorias,
             cardapio,
-          
           })
         })
       })
@@ -93,7 +102,16 @@ export default class Home extends React.Component {
       return (
         <View style={styles.container}>
           <View style={styles.busca}>
-            <SearchInput  />
+          <View style={[styles.searchSection,{marginTop:10}]}>
+                    <Icon.Feather style={styles.searchIcon} name="search" size={20} color={Colors.buttonlogin}/>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Busque sua comida favorita"
+                        value={this.state.searchString}
+                        onChangeText={(searchString) => {this.props.screenProps.search(searchString); this.setState({searchString:''})}}
+                        underlineColorAndroid="transparent"
+                    />
+                </View>
           </View>
           <ScrollView>
             <View style={{width:'100%', height:1}}></View>
@@ -102,13 +120,13 @@ export default class Home extends React.Component {
                 dataSource={this.state.carrosel}
                 horizontal={true}
                 renderRow={(rowData) => 
-                  <View style={{marginLeft:20,width:250,height:110}}>
+                  <TouchableOpacity style={{marginLeft:20,width:250,height:110}} onPress={()=>{this.modalAlternado(rowData.type )}}>
                     <ImageCache source={rowData.img} style={{width:250,height:125,marginTop:10, borderRadius:5,}}/>
                     <View style={{marginTop:20}}>
                       <Text style={{color:'black', fontSize:17}}>{rowData.titulo}</Text>
                       <Text style={{color: Colors.inputPlaceholder, fontSize:16}}>{rowData.descricao}</Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 }
               />
             </View>
@@ -119,12 +137,12 @@ export default class Home extends React.Component {
                   dataSource={this.state.categorias}
                   horizontal={true}
                   renderRow={(rowData) => 
-                    <View style={{height:170, marginRight:8,marginLeft:20,marginRight:-10}}>
+                    <TouchableOpacity style={{height:170, marginRight:8,marginLeft:20,marginRight:-10} }onPress={()=>{this.modalAlternado("Categoria",rowData.type)}} >
                       <ImageCache source={rowData.img} style={{width:70,height:60,marginTop:10, borderRadius:5,}}/>
                       <View style={{marginTop:10}}>
                         <Text style={{color:Colors.inputPlaceholder, fontSize:13, alignSelf:"center", marginTop:5}}>{rowData.categoria}</Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   }
                 />
               </View>
@@ -180,6 +198,28 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     justifyContent:'center',
     paddingBottom:15
+  },
+   
+  searchSection: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:5,
+    backgroundColor: '#EBEBEB',
+    height:50,
+    width:'90%',
+  },
+  searchIcon: {
+      padding: 10,
+  },
+  input: {
+      flex: 1,
+      paddingTop: 10,
+      paddingRight: 10,
+      paddingBottom: 10,
+      paddingLeft: 0,
+      backgroundColor: 'transparent',
+      color: 'black',
   },
   filtros:{
     

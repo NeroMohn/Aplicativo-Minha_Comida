@@ -5,7 +5,9 @@ const userSchema = mongoose.Schema({
     idApp:String,
     descricao:String,
     img:String,
-    ordem:Number
+    ordem:Number,
+    type:String,
+    promocao:Number,
 },
 {
     collection:'promo'

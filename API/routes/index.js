@@ -19,6 +19,25 @@ router.get('/', function(req, res, next) {
   
 
 
+
+router.post('/search', function(req, res, next) {
+    let idApp = req.body.idApp;
+    let search = req.body.search;
+
+    Cardapio.find({idApp:idApp, nome: new RegExp(search), })
+    .then((data)=>{
+        if(data.length>0){
+            res.send(JSON.stringify({status:"sucess",  data}));
+        }else{
+            res.send(JSON.stringify({status:'error', message:'Nada encontrado !'}));
+        }
+    })
+    .catch((err)=>{
+        res.send(JSON.stringify({status:'error',err}));
+})
+});
+
+
 router.post('/carrousel', function(req, res, next) {
   let idApp = req.body.idApp;
   console.log(JSON.stringify(req.body.idApp));
