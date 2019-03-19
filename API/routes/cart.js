@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 var Pedidos = require('./../schema/pedidos');
@@ -65,6 +66,7 @@ router.post('/pedir', function(req, res, next) {
 router.post('/efetuarPedido', function(req, res, next) {
     let idApp = req.body.idApp;
     let json = JSON.parse(req.body.json);
+
     Pedidos.insertMany({
         id_usuario:json.id_usuario,
         pedidos:json.pedido[0].pedido,
@@ -76,6 +78,7 @@ router.post('/efetuarPedido', function(req, res, next) {
         tipo:json.tipo,
         taxa_entrega:json.taxa_entrega,
     })
+    
     .then((data)=>{
       setTimeout(() => {
         res.send(JSON.stringify({status:"sucess",  data:data}));

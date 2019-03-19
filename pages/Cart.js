@@ -85,7 +85,7 @@ export default class Cart extends React.Component {
         case 1:
           return("Aguardando")
         case 2:
-          return("Á caminho")
+          return("Confirmado")
         case 3:
           return("Entregue")
       }

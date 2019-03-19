@@ -8,11 +8,12 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
   err =>{console.log("Erro na conexão com o banco de dados !",err);}
 );
 
-/* GET users listing. */
+
 router.post('/', function(req, res, next) {
     let email =req.body.email;
     email= email.toLowerCase();
     let pass = req.body.senha;
+    console.log(email)
     User.find({email:email})
     .then((data)=>{
         if(data.pass === pass && data.length>0){

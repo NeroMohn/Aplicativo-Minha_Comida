@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Promo = require('./../schema/promo');
-var Categorias = require('./../schema/categorias');
+
+var Promo = require('../schema/promo');
+var Categorias = require('../schema/categorias');
 var Cardapio = require('../schema/cardapio');
 var Complementos = require('../schema/complementos');
 var Estabelecimento = require('../schema/dados_estabelecimento');
@@ -14,7 +15,7 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
 
 
 router.get('/', function(req, res, next) {
-    res.render('index');
+    res.render('index',{params: 'agua'});
 })
   
 
@@ -126,7 +127,6 @@ router.post('/estabelecimento', function(req, res, next) {
 });
 
 
-  
-  
+
 
 module.exports = router;

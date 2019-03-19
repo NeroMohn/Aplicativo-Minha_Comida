@@ -10,6 +10,9 @@ import Carrinho from './pages/Carrinho';
 import FinalizarCompra from './pages/FinalizarCompra';
 import ModalAlternado from './pages/ModalAlternado';
 import Busca from './pages/Busca'
+import Cadastrar from './pages/Cadastrar';
+
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -39,11 +42,11 @@ export default class App extends React.Component {
               <AppNavigator screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) , search: this.search.bind(this),checkuoutopen: this.checkoutOpen.bind(this), modalAlternado: this.initModal.bind(this)}} />
               :<LoginScreen screenProps= {{s: this.store, fc: this.filecache, }} />}
               <ModalAlternado screenProps= {{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) }} ref="modalAlternado" />
-
+              <Cadastrar screenProps= {{s: this.store, fc: this.filecache, }} />
               <Busca screenProps={{s: this.store, fc: this.filecache, pocurso: this.playerOpenCurso.bind(this) ,}} ref="search" />
               <Carrinho style={{zIndex:999999}} screenProps={{s: this.store, fc: this.filecache, checkuoutopen: this.checkoutOpen.bind(this) }} ref="carrinho" />
               <FinalizarCompra screenProps={{s: this.store, fc: this.filecache, clean_carrinho: this.clean_carrinho.bind(this)}} ref="checkouts" />
-             
+              
             </KeyboardAvoidingView> 
           </SafeAreaView>
         </View>
