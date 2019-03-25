@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     idApp:String,
     nome:String,
     enderco:Array,
+    isAdmin:Number
 },
 {
     collection:'user'

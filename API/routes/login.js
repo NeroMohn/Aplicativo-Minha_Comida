@@ -11,12 +11,15 @@ mongoose.connect('mongodb://localhost/minha_comida').then(
 
 router.post('/', function(req, res, next) {
     let email =req.body.email;
-    email= email.toLowerCase();
+    email= email;
     let pass = req.body.senha;
-    console.log(email)
+   
     User.find({email:email})
     .then((data)=>{
-        if(data.pass === pass && data.length>0){
+        let tam =data.length;
+        data = data[0]
+        console.log(tam>0)
+        if(data.pass === pass &&tam>0){
             res.send(JSON.stringify({status:"sucess",  data}));
         }else{
             res.send(JSON.stringify({status:'error', message:'E-mail ou senha errados !'}));
@@ -28,5 +31,24 @@ router.post('/', function(req, res, next) {
 
 });
 
+router.get('/', function(req, res, next) {
+    let email =req.query.email;
+    let pass = req.query.senha;
+   
+    User.find({email:email})
+    .then((data)=>{
+        let tam =data.length;
+        data = data[0]
+        console.log(tam>0)
+        if(data.pass === pass &&tam>0){
+            res.send(JSON.stringify({status:"sucess",  data}));
+        }else{
+            res.send(JSON.stringify({status:'error', message:'E-mail ou senha errados !'}));
+        }
+    })
+    .catch((err)=>{
+        res.send(JSON.stringify({status:'error'}));
+    })
 
+});
 module.exports = router;
