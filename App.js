@@ -16,7 +16,7 @@ import Cadastrar from './pages/Cadastrar';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    isLoggedIn: true
+    isLoggedIn: true 
   };
 
   store = null;
