@@ -18,10 +18,10 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0
-    },
+    }, 
     "assetBundlePatterns": [
       "**/*"
-    ],
+    ], 
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "br.com.yan.minhaComida",
@@ -31,10 +31,10 @@
         "NSPhotoLibraryAddUsageDescription": "Precisamos do acesso à sua galeria para a seleção da foto de seu perfil.",
         "NSPhotoLibraryUsageDescription": "Precisamos do acesso à sua galeria para a seleção da foto de seu perfil.",
         "NSCameraUsageDescription":"Precisamos do acesso à sua camera para a seleção da foto de seu perfil."
-      }
+      } 
     },
     "android": {
-      "package":  "br.com.yan.minhaComida"
+      "package":  "br.com.yan.minhaComida" 
     },
     "description": "Minha Comida."
   }
