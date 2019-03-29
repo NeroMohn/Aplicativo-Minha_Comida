@@ -10,8 +10,7 @@ const userSchema = mongoose.Schema({
     previsao_fin:Number,
     taxa_entrega:Number,
     idApp:String,
-},
-{
+},{
     collection:'dados_estabelecimento'
 });
 module.exports = mongoose.model('dados_estabelecimento',userSchema);

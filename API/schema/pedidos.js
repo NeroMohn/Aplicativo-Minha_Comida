@@ -12,8 +12,7 @@ const userSchema = mongoose.Schema({
     endereco:Array,
     tipo:String,
     taxa_entrega:Number,
-},
-{
+},{
     collection:'pedidos'
 });
 module.exports = mongoose.model('pedidos',userSchema);

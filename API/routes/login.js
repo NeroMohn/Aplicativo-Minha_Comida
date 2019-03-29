@@ -14,7 +14,7 @@ router.post('/', function(req, res, next) {
     email= email;
     let pass = req.body.senha;
    
-    User.find({email:email})
+    User.find({email:email}) 
     .then((data)=>{
         let tam =data.length;
         data = data[0]
@@ -28,7 +28,7 @@ router.post('/', function(req, res, next) {
     .catch((err)=>{
         res.send(JSON.stringify({status:'error'}));
     })
-
+ 
 });
 
 router.get('/', function(req, res, next) {
