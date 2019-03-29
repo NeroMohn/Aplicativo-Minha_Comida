@@ -32,7 +32,7 @@ router.post('/meuspedidos', function(req, res, next) {
             .then(adas=>{
                 array.push(adas[0])
             })
-        })
+        }) 
         setTimeout(() => {
             res.send(JSON.stringify({pedidos:array, dados:data}));
         }, 200);

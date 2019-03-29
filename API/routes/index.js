@@ -11,7 +11,7 @@ var Estabelecimento = require('../schema/dados_estabelecimento');
 mongoose.connect('mongodb://localhost/minha_comida').then(
   ()=>{},
   err =>{console.log("Erro na conexão com o banco de dados !",err);}
-);
+); 
 
 
 router.get('/', function(req, res, next) {
