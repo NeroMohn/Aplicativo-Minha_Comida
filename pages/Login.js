@@ -27,7 +27,7 @@ export default class LoginScreen extends React.Component {
   constructor(props){
       super(props);
       this.state = {
-          email: "Admin",
+          email: "admin",
           senha: "admin",
           loading: false,
           visible:false
@@ -48,19 +48,21 @@ export default class LoginScreen extends React.Component {
       this.setState({loading: true});
       axios.post(Server.host + `/login`,{ email:this.state.email, pass:this.state.senha, idApp:Server.idApp})
       .then(res=>{
+        console.log(res.data)
         if(res.data.status === "sucess"){
           this.store.set('usuario', res.data);
         }else{
           Alert.alert("Opps...", res.data.message);
           this.setState({loading: false});
         }
-       
+        console.log("não erro " );
       })
       .catch(e=>{
         this.setState({loading: false});
+        console.log("erro " + e);
       });
 
-      //  this.store.set('usuario', s.dados);
+    //  this.store.set('usuario', s.dados);
   }
 
   render() {
