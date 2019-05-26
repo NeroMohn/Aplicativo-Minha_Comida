@@ -1,0 +1,14 @@
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/bin/Debug/netcoreapp2.2/apifood.WebApi.deps.json
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/bin/Debug/netcoreapp2.2/apifood.WebApi.runtimeconfig.json
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/bin/Debug/netcoreapp2.2/apifood.WebApi.runtimeconfig.dev.json
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/bin/Debug/netcoreapp2.2/apifood.WebApi.dll
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/bin/Debug/netcoreapp2.2/apifood.WebApi.pdb
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.csprojAssemblyReference.cache
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.csproj.CoreCompileInputs.cache
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.RazorAssemblyInfo.cache
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.RazorAssemblyInfo.cs
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.AssemblyInfoInputs.cache
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.AssemblyInfo.cs
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.RazorTargetAssemblyInfo.cache
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.dll
+/home/daniel/Documentos/projetos/Aplicativo-Minha_Comida/APINET/obj/Debug/netcoreapp2.2/apifood.WebApi.pdb

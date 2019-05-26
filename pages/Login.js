@@ -45,8 +45,9 @@ export default class LoginScreen extends React.Component {
     else
       if(email.length<=4) return;
       if(senha.length<=4) return;
-      this.setState({loading: true});
-      axios.post(Server.host + `/login`,{ email:this.state.email, pass:this.state.senha, idApp:Server.idApp})
+      this.setState({loading: true})
+      let params = { email:this.state.email, pass:this.state.senha, idApp:Server.idApp};
+      axios.post(Server.host + `/login`,JSON.stringify(params))
       .then(res=>{
         console.log(res.data)
         if(res.data.status === "sucess"){
@@ -60,6 +61,7 @@ export default class LoginScreen extends React.Component {
       .catch(e=>{
         this.setState({loading: false});
         console.log("erro " + e);
+        console.log(Server.host + `/login`,JSON.stringify(params))
       });
 
     //  this.store.set('usuario', s.dados);
