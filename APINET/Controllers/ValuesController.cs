@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 // {
     // [Authorize]
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class ValuesController : ControllerBase
     {
         // GET api/values
